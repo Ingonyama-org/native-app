@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { flaskAuthInstance } from "../../routes";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { login } from "../../redux/features/userSlice";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Signup({ navigation }) {
   const dispatch = useDispatch();
@@ -149,108 +150,110 @@ export default function Signup({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text style={styles.title}>Personal Details</Text>
-        <Text style={styles.pageCount}>1/2</Text>
-      </View>
+    <KeyboardAwareScrollView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={styles.title}>Personal Details</Text>
+          <Text style={styles.pageCount}>1/2</Text>
+        </View>
 
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "space-around",
-          height: heightPercentageToDP(80),
-        }}
-      >
-        <MyInput
-          label="Full Name"
-          placeholder="First & Second name"
-          valueInput={sign_name}
-          onChangeText={setSign_name}
-        />
-        <MyInput
-          label="Phone Number"
-          placeholder="include your country code (+254 ..)"
-          valueInput={sign_phoneNumber}
-          onChangeText={setSignPhoneNumber}
-        />
-        <MyInput
-          label="Email"
-          placeholder="eg. lion@simba.cat"
-          emailError={emailError}
-          valueInput={sign_email}
-          onChangeText={setSign_email}
-          icon={
-            <FontAwesome5
-              name="arrow-alt-circle-right"
-              size={24}
-              color={valid_email && !isEmailIsOkay ? "#002145" : "gray"}
-            />
-          }
-          onPress={() => get_res_email_exist()}
-          editable={!isEmailIsOkay}
-          selectTextOnFocus={!isEmailIsOkay}
-          color={!isEmailIsOkay ? "black" : "gray"}
-        />
-        {qualityError && (
-          <Text style={{ marginTop: -12, color: "red" }}>
-            Oops, Enter a valid email
-          </Text>
-        )}
-        {emailExistsError && (
-          <Text
-            onpress={() => navigation.navigate("Login")}
-            style={{ marginTop: -12, color: "red" }}
-          >
-            Oops, The Email Already exists. Login
-          </Text>
-        )}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "space-around",
+            height: heightPercentageToDP(80),
+          }}
+        >
+          <MyInput
+            label="Full Name"
+            placeholder="First & Second name"
+            valueInput={sign_name}
+            onChangeText={setSign_name}
+          />
+          <MyInput
+            label="Phone Number"
+            placeholder="include your country code (+254 ..)"
+            valueInput={sign_phoneNumber}
+            onChangeText={setSignPhoneNumber}
+          />
+          <MyInput
+            label="Email"
+            placeholder="eg. lion@simba.cat"
+            emailError={emailError}
+            valueInput={sign_email}
+            onChangeText={(text) => setSign_email(text.replace(" ", ""))}
+            icon={
+              <FontAwesome5
+                name="arrow-alt-circle-right"
+                size={24}
+                color={valid_email && !isEmailIsOkay ? "#002145" : "gray"}
+              />
+            }
+            onPress={() => get_res_email_exist()}
+            editable={!isEmailIsOkay}
+            selectTextOnFocus={!isEmailIsOkay}
+            color={!isEmailIsOkay ? "black" : "gray"}
+          />
+          {qualityError && (
+            <Text style={{ marginTop: -12, color: "red" }}>
+              Oops, Enter a valid email
+            </Text>
+          )}
+          {emailExistsError && (
+            <Text
+              onpress={() => navigation.navigate("Login")}
+              style={{ marginTop: -12, color: "red" }}
+            >
+              Oops, The Email Already exists. Login
+            </Text>
+          )}
 
-        <MyInput
-          label="Create Password"
-          placeholder="********"
-          isPassword={true}
-          valueInput={sign_pwd1}
-          onChangeText={setSign_pwd1}
-          editable={isEmailIsOkay}
-          selectTextOnFocus={isEmailIsOkay}
-          color={isEmailIsOkay ? "black" : "#d2d2d2"}
-        />
-        {pwdError && (
-          <Text style={{ marginTop: -12, color: "red" }}>
-            Oops, weak password.
-          </Text>
-        )}
-        <MyInput
-          label="Confirm Password"
-          placeholder="********"
-          isPassword={true}
-          valueInput={sign_pwd2}
-          onChangeText={setSign_pwd2}
-          editable={isEmailIsOkay}
-          selectTextOnFocus={isEmailIsOkay}
-          color={isEmailIsOkay ? "black" : "#d2d2d2"}
-        />
-        {pwd2Error && (
-          <Text style={{ marginTop: -12, color: "red" }}>
-            Oops, your password does'nt match
-          </Text>
-        )}
-        <MyButton
-          text={!isCreating ? "Create Account" : "Creating..."}
-          onPress={() => onSignBtn()}
-        />
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
-          <Text>Already have an account?</Text>
-          <Text style={{ marginLeft: 3, color: "#E49531" }}>Login</Text>
+          <MyInput
+            label="Create Password"
+            placeholder="********"
+            isPassword={true}
+            valueInput={sign_pwd1}
+            onChangeText={setSign_pwd1}
+            editable={isEmailIsOkay}
+            selectTextOnFocus={isEmailIsOkay}
+            color={isEmailIsOkay ? "black" : "#d2d2d2"}
+          />
+          {pwdError && (
+            <Text style={{ marginTop: -12, color: "red" }}>
+              Oops, weak password.
+            </Text>
+          )}
+          <MyInput
+            label="Confirm Password"
+            placeholder="********"
+            isPassword={true}
+            valueInput={sign_pwd2}
+            onChangeText={setSign_pwd2}
+            editable={isEmailIsOkay}
+            selectTextOnFocus={isEmailIsOkay}
+            color={isEmailIsOkay ? "black" : "#d2d2d2"}
+          />
+          {pwd2Error && (
+            <Text style={{ marginTop: -12, color: "red" }}>
+              Oops, your password does'nt match
+            </Text>
+          )}
+          <MyButton
+            text={!isCreating ? "Create Account" : "Creating..."}
+            onPress={() => onSignBtn()}
+          />
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <Text>Already have an account?</Text>
+            <Text style={{ marginLeft: 3, color: "#E49531" }}>Login</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 const styles = StyleSheet.create({

@@ -7,6 +7,7 @@ import MyInput from "../../component/MyInput";
 import img from "../../assets/img/splash.png";
 import { flaskAuthInstance } from "../../routes";
 import { login, uploadedPhoto } from "../../redux/features/userSlice";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -100,44 +101,46 @@ export default function Login({ navigation }) {
   }, [addToRedux]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
-        <Image style={styles.image} source={img} />
-        <Text style={styles.title}>Welcome back</Text>
-      </View>
-      <Text style={{ textAlign: "center", margin: 20 }}>
-        Login to your account
-      </Text>
-      <View style={styles.content}>
-        <MyInput
-          label="Email:"
-          placeholder="eg. lion@simba.com"
-          valueInput={login_email}
-          onChangeText={setLoginEmail}
-        />
-        <MyInput
-          label="Password:"
-          placeholder="********"
-          isPassword={true}
-          valueInput={login_pwd}
-          onChangeText={setLoginPwd}
-        />
-        <MyButton
-          text={!isLoggingIn ? "Login" : "Logging in..."}
-          onPress={() => handleLogin()}
-        />
-        <View style={{ marginTop: 20 }}></View>
-        <MyButton
-          text="Create an Account"
-          nobg={true}
-          onPress={() => navigation.navigate("Signup")}
-        />
-      </View>
-    </SafeAreaView>
+    <KeyboardAwareScrollView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <Image style={styles.image} source={img} />
+          <Text style={styles.title}>Welcome back</Text>
+        </View>
+        <Text style={{ textAlign: "center", margin: 20 }}>
+          Login to your account
+        </Text>
+        <View style={styles.content}>
+          <MyInput
+            label="Email:"
+            placeholder="eg. lion@simba.com"
+            valueInput={login_email}
+            onChangeText={(text) => setLoginEmail(text.replace(" ", ""))}
+          />
+          <MyInput
+            label="Password:"
+            placeholder="********"
+            isPassword={true}
+            valueInput={login_pwd}
+            onChangeText={setLoginPwd}
+          />
+          <MyButton
+            text={!isLoggingIn ? "Login" : "Logging in..."}
+            onPress={() => handleLogin()}
+          />
+          <View style={{ marginTop: 20 }}></View>
+          <MyButton
+            text="Create an Account"
+            nobg={true}
+            onPress={() => navigation.navigate("Signup")}
+          />
+        </View>
+      </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 const styles = StyleSheet.create({
