@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import { useDispatch } from "react-redux";
-import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import {
@@ -41,6 +40,7 @@ export default function HomeCamera({ navigation }) {
   const [videoSource, setVideoSource] = useState(null);
   const [imgSource, setImgSource] = useState(null);
   const cameraRef = useRef();
+  const [isTakePicture, setIsTakePicture] = useState(false);
 
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -95,10 +95,14 @@ export default function HomeCamera({ navigation }) {
           imgUploadStatus: false,
         })
       );
-
+      setIsTakePicture((current) => !current);
       setIsPreview(true);
     }
   };
+  // useEffect(() => {
+  //   if (cameraRef.current) {
+  //   }
+  // }, isTakePicture);
 
   const pickMedia = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({

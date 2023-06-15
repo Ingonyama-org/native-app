@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-  ScrollView,
-  FlatList,
-  Text,
-} from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from "react-native-responsive-screen";
 import { useDispatch, useSelector } from "react-redux";
-import onboardimg1 from "../../assets/img/onboarding/onboarding1.jpg";
-import onboardimg2 from "../../assets/img/onboarding/onboarding2.jpeg";
-import onboardimg3 from "../../assets/img/onboarding/onboarding3.jpg";
+
 import MyButton from "../../component/MyButton";
 import {
   selectTakenPhotos,
@@ -47,7 +37,6 @@ export default function Gallery({ navigation }) {
     }
   };
 
-  // console.log(takenPhotos);
   useEffect(() => {
     if (takenPhotos.length < 1) {
       setIsEmpty(true);

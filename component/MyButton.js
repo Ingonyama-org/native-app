@@ -2,10 +2,11 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
-export default function MyButton({ text, onPress, nobg, Icon }) {
+export default function MyButton({ text, onPress, nobg, Icon, isDisabled }) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
+      disabled={isDisabled}
       onPress={onPress}
       style={[
         styles.container,

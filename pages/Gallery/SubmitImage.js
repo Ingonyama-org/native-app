@@ -99,6 +99,7 @@ export default function SubmitImage({ route, navigation }) {
             style={{ marginRight: 10 }}
           />
         }
+        isDisabled={isUploading}
         text={isUploading ? "Uploading..." : "Submit Image"}
         onPress={() => handleUploadImg()}
       />
